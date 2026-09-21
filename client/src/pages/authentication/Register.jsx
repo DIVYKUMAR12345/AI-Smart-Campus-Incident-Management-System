@@ -24,7 +24,9 @@ function Register() {
 
         password: "",
 
-        confirmPassword: ""
+        confirmPassword: "",
+
+        role: "student"
 
     });
 
@@ -72,11 +74,13 @@ function Register() {
 
             department: formData.department,
 
-            enrollmentNo: formData.enrollmentNo,
+            enrollmentNo: formData.role === "student"
+                ? formData.enrollmentNo
+                : undefined,
 
             password: formData.password,
 
-            role: "student"
+            role: formData.role
 
         };
 
@@ -94,22 +98,22 @@ function Register() {
 
         switch (result.user.role) {
 
-    case "student":
-        navigate("/student/dashboard");
-        break;
+            case "student":
+                navigate("/student/dashboard");
+                break;
 
-    case "faculty":
-        navigate("/faculty/dashboard");
-        break;
+            case "faculty":
+                navigate("/faculty/dashboard");
+                break;
 
-    case "admin":
-        navigate("/admin/dashboard");
-        break;
+            case "admin":
+                navigate("/admin/dashboard");
+                break;
 
-    default:
-        navigate("/login");
+            default:
+                navigate("/login");
 
-}
+        }
 
     };
 
@@ -147,7 +151,7 @@ function Register() {
 
             >
 
-                Student Registration
+                User Registration
 
             </h2>
 
@@ -237,15 +241,11 @@ function Register() {
 
                 </select>
 
-                <input
+                <select
 
-                    type="text"
+                    name="role"
 
-                    name="enrollmentNo"
-
-                    placeholder="Enrollment Number"
-
-                    value={formData.enrollmentNo}
+                    value={formData.role}
 
                     onChange={handleChange}
 
@@ -253,7 +253,27 @@ function Register() {
 
                     style={inputStyle}
 
-                />
+                >
+
+                    <option value="student">Student</option>
+
+                    <option value="faculty">Faculty</option>
+
+                    <option value="admin">Admin</option>
+
+                </select>
+
+                {formData.role === "student" && (
+                    <input
+                        type="text"
+                        name="enrollmentNo"
+                        placeholder="Enrollment Number"
+                        value={formData.enrollmentNo}
+                        onChange={handleChange}
+                        required
+                        style={inputStyle}
+                    />
+                )}
 
                 <input
 

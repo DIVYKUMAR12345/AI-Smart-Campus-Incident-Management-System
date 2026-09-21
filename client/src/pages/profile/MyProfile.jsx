@@ -81,7 +81,7 @@ function MyProfile() {
 
                     src={
                         profile.profileImage
-                            ? `http://localhost:5000/uploads/${profile.profileImage}`
+                            ? `${import.meta.env.VITE_API_URL}/uploads/${profile.profileImage}`
                             : "https://via.placeholder.com/150"
                     }
 

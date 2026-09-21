@@ -63,7 +63,7 @@ function EditProfile() {
 
                 setPreview(
 
-                    `http://localhost:5000/uploads/${user.profileImage}`
+                    `${import.meta.env.VITE_API_URL}/uploads/${user.profileImage}`
 
                 );
 
